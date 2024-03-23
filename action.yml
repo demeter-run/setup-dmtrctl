@@ -1,0 +1,10 @@
+name: 'Setup dmtrctl'
+description: 'Sets up dmtrctl binary in the environment'
+inputs:
+  version:
+    description: 'Version of dmtrctl to install. Leave empty for latest.'
+    required: false
+    default: 'latest'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
