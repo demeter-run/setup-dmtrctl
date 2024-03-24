@@ -1,10 +1,13 @@
-name: 'Setup dmtrctl'
-description: 'Sets up dmtrctl binary in the environment'
+name: 'Demeter CLI installer'
+description: 'Install a specific version of dmtrctl binary'
 inputs:
   version:
     description: 'Version of dmtrctl to install. Leave empty for latest.'
     required: false
-    default: 'latest'
+    default: 'stable'
+outputs:
+  dmtrctl-path:
+    description: 'Path to the cached dmtrctl binary'
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: 'node20'
+  main: 'lib/index.js'
