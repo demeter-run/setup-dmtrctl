@@ -62,6 +62,8 @@ export async function downloadTool(version: string): Promise<string> {
     const variant = getRunnerVariant();
     const downloadUrl = getDownloadUrl(version, variant);
 
+    console.log(`downloading ${TOOL_NAME} from ${downloadUrl}`);
+
     try {
       downloadPath = await toolCache.downloadTool(downloadUrl);
     } catch (exception) {
@@ -77,14 +79,15 @@ export async function downloadTool(version: string): Promise<string> {
       }
     }
 
+    console.log(`downloaded ${TOOL_NAME} for ${variant} to ${downloadPath}`);
+
     const unpackedPath = await toolCache.extractTar(downloadPath);
 
-    cachedToolpath = await toolCache.cacheFile(
-      unpackedPath,
-      TOOL_NAME + getExecutableExtension(),
-      TOOL_NAME,
-      version
-    );
+    console.log(`unpacked tool to ${unpackedPath}`);
+
+    cachedToolpath = await toolCache.cacheDir(unpackedPath, TOOL_NAME, version);
+
+    console.log(`cached tool to ${cachedToolpath}`);
   }
 
   const kubectlPath = path.join(
