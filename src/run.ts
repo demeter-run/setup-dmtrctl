@@ -90,14 +90,14 @@ export async function downloadTool(version: string): Promise<string> {
     console.log(`cached tool to ${cachedToolpath}`);
   }
 
-  const kubectlPath = path.join(
+  const finalPath = path.join(
     cachedToolpath,
     TOOL_NAME + getExecutableExtension()
   );
 
-  fs.chmodSync(kubectlPath, "775");
+  fs.chmodSync(finalPath, "775");
 
-  return kubectlPath;
+  return finalPath;
 }
 
 run().catch(core.setFailed);
